@@ -2,6 +2,10 @@
 
 一个 DeepSeek Web 的 Magpie provider，内部支持多个网页账号凭证（key pool）。每个 key 可以包含 `userToken` 和可选 `cookie`，同一个 Magpie 会话会粘在同一个 key 上，key 失效或冷却后才会切换。
 
+## 当前版本
+
+`0.1.2`：Magpie 插件列表中的名称与仓库名统一为 `magpie-deepseekweb2api`。默认登录先输入 `userToken`，再输入可选 Cookie，不需要手写 JSON；多账号 JSON 导入仍保留为单独选项。内部 provider ID 仍为 `deepseek-web`，已有账号配置无需迁移。
+
 ## 产品边界
 
 这是本地运行的 provider 插件，不是托管服务，也不会把账号凭证上传到第三方服务器。插件只会向 `chat.deepseek.com` 发起网页端请求。DeepSeek 网页接口属于内部协议，可能随网页版本变化；商业部署前应使用专用测试账号、配置出站代理和审计日志，并准备官方 API 作为降级方案。
