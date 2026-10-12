@@ -1,0 +1,19 @@
+{
+  "name": "magpie-deepseek-web-pool",
+  "version": "0.1.0",
+  "description": "DeepSeek Web provider plugin for Magpie with an internal multi-key pool",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "exports": { ".": "./src/index.mjs", "./server": "./src/index.mjs" },
+  "files": ["src", "scripts", "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md"],
+  "keywords": ["magpie", "magpie-plugin", "deepseek", "deepseek-web"],
+  "license": "MIT",
+  "engines": { "node": ">=20.3.0" },
+  "magpie": { "maxConcurrency": 4 },
+  "scripts": {
+    "check": "for f in src/*.mjs test/*.mjs scripts/*.mjs; do node --check \"$f\" || exit 1; done && git diff --check",
+    "test:host": "node scripts/magpie-host-smoke.mjs",
+    "pack:check": "node scripts/package-smoke.mjs",
+    "test": "node --test"
+  }
+}
