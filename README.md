@@ -4,7 +4,7 @@
 
 ## 当前版本
 
-`0.1.2`：Magpie 插件列表中的名称与仓库名统一为 `magpie-deepseekweb2api`。默认登录先输入 `userToken`，再输入可选 Cookie，不需要手写 JSON；多账号 JSON 导入仍保留为单独选项。内部 provider ID 仍为 `deepseek-web`，已有账号配置无需迁移。
+`0.1.3`：补上插件市场卡片所需的 `magpie.icon`，图标地址固定到对应发布版本。Magpie 插件列表中的名称与仓库名统一为 `magpie-deepseekweb2api`。默认登录先输入 `userToken`，再输入可选 Cookie，不需要手写 JSON；多账号 JSON 导入仍保留为单独选项。内部 provider ID 仍为 `deepseek-web`，已有账号配置无需迁移。
 
 ## 产品边界
 

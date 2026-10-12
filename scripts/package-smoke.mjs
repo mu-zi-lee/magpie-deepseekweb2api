@@ -18,6 +18,7 @@ try {
   await run("tar", ["-xzf", path.join(temporary, archive.filename), "-C", temporary])
   const packageRoot = path.join(temporary, "package")
   const manifest = JSON.parse(await readFile(path.join(packageRoot, "package.json"), "utf8"))
+  assert.equal(manifest.magpie.icon, `https://raw.githubusercontent.com/mu-zi-lee/magpie-deepseekweb2api/v${manifest.version}/assets/icon-256.png`, "market icon must point to this release's bundled asset")
   const { default: entry } = await import(pathToFileURL(path.join(packageRoot, manifest.exports["./server"])).href)
   assert.equal(entry.id, "deepseek-web")
   assert.equal(typeof entry.server, "function")

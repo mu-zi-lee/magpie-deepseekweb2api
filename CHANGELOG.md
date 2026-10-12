@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3
+
+- Add package.json's magpie.icon so GitHub plugin market cards display the plugin image.
+- Pin the market icon URL to the release tag and verify it against the packaged asset path.
+
 ## 0.1.2
 
 - Match the package name and README title to the repository name, magpie-deepseekweb2api.

@@ -1,6 +1,6 @@
 {
   "name": "magpie-deepseekweb2api",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "DeepSeek Web provider plugin for Magpie with an internal multi-key pool",
   "type": "module",
   "main": "./src/index.mjs",
@@ -9,7 +9,10 @@
   "keywords": ["magpie", "magpie-plugin", "deepseek", "deepseek-web"],
   "license": "MIT",
   "engines": { "node": ">=20.3.0" },
-  "magpie": { "maxConcurrency": 4 },
+  "magpie": {
+    "icon": "https://raw.githubusercontent.com/mu-zi-lee/magpie-deepseekweb2api/v0.1.3/assets/icon-256.png",
+    "maxConcurrency": 4
+  },
   "scripts": {
     "check": "for f in src/*.mjs test/*.mjs scripts/*.mjs; do node --check \"$f\" || exit 1; done && git diff --check",
     "test:host": "node scripts/magpie-host-smoke.mjs",
