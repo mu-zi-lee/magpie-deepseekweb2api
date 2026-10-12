@@ -63,6 +63,33 @@ export const server = async () => {
       icon,
       methods: [{
         type: "oauth",
+        label: "Sign in with userToken and Cookie",
+        prompts: [{
+          type: "text",
+          key: "userToken",
+          message: "DeepSeek userToken",
+          placeholder: "userToken",
+          validate: (value) => String(value ?? "").trim() ? undefined : "userToken is required",
+        }, {
+          type: "text",
+          key: "cookie",
+          message: "DeepSeek Cookie (optional)",
+          placeholder: "session=...; ... (leave blank to skip)",
+        }],
+        async authorize(inputs = {}) {
+          const userToken = String(inputs.userToken ?? "").trim()
+          const cookie = String(inputs.cookie ?? "").trim()
+          return {
+            url: "",
+            method: "auto",
+            instructions: "",
+            callback: () => userToken
+              ? verifyKeys(JSON.stringify([{ userToken, cookie }]))
+              : Promise.resolve({ type: "failed", error: "userToken is required" }),
+          }
+        },
+      }, {
+        type: "oauth",
         label: "Import DeepSeek Web keys",
         async authorize() {
           return {

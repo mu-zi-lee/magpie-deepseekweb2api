@@ -21,7 +21,7 @@ const upstream = createServer(async (request, response) => {
     for await (const chunk of request) chunks.push(chunk)
     const body = chunks.length ? JSON.parse(Buffer.concat(chunks).toString()) : null
     const token = request.headers.authorization?.slice(7)
-    requests.push({ path: request.url, token, body })
+    requests.push({ path: request.url, token, cookie: request.headers.cookie, body })
     response.setHeader("content-type", "application/json")
     let data
     if (request.url === "/api/v0/users/current") data = { id: "fake-user" }
@@ -98,7 +98,30 @@ try {
   assert.match(providers[0].icon, /^data:image\/png;base64,/)
   assert.equal(providers[0].methods[0].type, "oauth")
   assert.deepEqual(providers[0].models.map((model) => model.id).sort(), ["deepseek-chat", "deepseek-reasoner"])
-  const flow = await rpc("authorize", { provider: "deepseek-web", method: 0 })
+  const signIn = { provider: "deepseek-web", method: 0 }
+  const tokenPrompt = await rpc("prompt", { ...signIn, inputs: {} })
+  assert.equal(tokenPrompt.prompt.key, "userToken")
+  const invalidToken = await rpc("validate", { ...signIn, key: "userToken", value: " " })
+  assert.match(invalidToken.error, /required/)
+  const cookiePrompt = await rpc("prompt", { ...signIn, inputs: { userToken: "fake-token-b" } })
+  assert.equal(cookiePrompt.prompt.key, "cookie")
+  let account
+  for (const cookie of ["session=fake", ""]) {
+    const inputs = { userToken: "fake-token-b", cookie }
+    assert.equal((await rpc("prompt", { ...signIn, inputs })).prompt, null)
+    const singleFlow = await rpc("authorize", { ...signIn, inputs, account })
+    assert.equal(singleFlow.method, "auto")
+    assert.equal(singleFlow.url, "")
+    const singleLogin = await rpc("callback", { session: singleFlow.session })
+    assert.equal(singleLogin.ok, true)
+    account = singleLogin.account
+    assert.equal(requests.at(-1).token, "fake-token-b")
+    assert.equal(requests.at(-1).cookie ?? "", cookie)
+    const singleLoaded = await rpc("load", { provider: "deepseek-web" })
+    assert.equal(singleLoaded.fetch, true)
+    assert.match(JSON.stringify(await rpc("usage", { provider: "deepseek-web" })), /1 keys/)
+  }
+  const flow = await rpc("authorize", { provider: "deepseek-web", method: 1, account })
   assert.equal(flow.method, "code")
   const login = await rpc("callback", { session: flow.session, code: JSON.stringify([{ id: "a", userToken: "fake-token-a" }, { id: "b", userToken: "fake-token-b" }]) })
   assert.equal(login.ok, true)

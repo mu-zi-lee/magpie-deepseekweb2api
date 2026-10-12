@@ -16,7 +16,7 @@ test("authorization validates keys with bounded concurrency", async () => {
   try {
     const plugin = await server()
     const keys = Array.from({ length: 12 }, (_, index) => ({ id: String(index), userToken: `token-${index}` }))
-    const flow = await plugin.auth.methods[0].authorize()
+    const flow = await plugin.auth.methods[1].authorize()
     const result = await flow.callback(JSON.stringify(keys))
     assert.equal(result.type, "success")
     assert.ok(peak <= 4)

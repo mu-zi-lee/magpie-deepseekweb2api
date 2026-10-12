@@ -10,7 +10,9 @@
 
 当前版本先支持 DeepSeek Chat/Reasoner、网页端会话、PoW 和 SSE 流式响应。网页内部协议可能变化，插件仅适合在你有权使用的账号上进行本地开发和测试。
 
-登录时可以粘贴 JSON：
+在 Magpie 中选择 `Sign in with userToken and Cookie`，先输入 `userToken`，再输入 Cookie。Cookie 可留空跳过，提交后会自动验证账号，不需要手写 JSON。
+
+多账号用户可以选择 `Import DeepSeek Web keys`，粘贴 JSON：
 
 ```json
 [

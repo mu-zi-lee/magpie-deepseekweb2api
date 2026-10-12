@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1
+
+- Make separate userToken and optional Cookie prompts the default sign-in flow.
+- Validate and save credentials automatically without requiring hand-written JSON.
+- Retain multi-account JSON import as a separate sign-in option.
+- Test both sign-in flows through unit tests, the release archive, and the real Magpie Bun host.
+
 ## 0.1.0
 
 - Initial DeepSeek Web Magpie provider.

@@ -40,8 +40,8 @@ try {
   const config = {}
   plugin.config(config)
   assert.deepEqual(Object.keys(config.provider["deepseek-web"].models).sort(), ["deepseek-chat", "deepseek-reasoner"])
-  const flow = await plugin.auth.methods[0].authorize()
-  const auth = await flow.callback("package-fake-token")
+  const flow = await plugin.auth.methods[0].authorize({ userToken: "package-fake-token", cookie: "" })
+  const auth = await flow.callback()
   assert.equal(auth.type, "success")
   const loaded = await plugin.auth.loader(async () => ({ type: "api", key: auth.key }))
   const response = await loaded.fetch("https://test.invalid/v1/chat/completions", {
