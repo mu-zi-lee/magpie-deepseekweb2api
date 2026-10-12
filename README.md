@@ -1,4 +1,4 @@
-# magpie-deepseek-web-pool
+# magpie-deepseekweb2api
 
 一个 DeepSeek Web 的 Magpie provider，内部支持多个网页账号凭证（key pool）。每个 key 可以包含 `userToken` 和可选 `cookie`，同一个 Magpie 会话会粘在同一个 key 上，key 失效或冷却后才会切换。
 

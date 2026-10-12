@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Match the package name and README title to the repository name, magpie-deepseekweb2api.
+- Keep the provider ID unchanged so existing account configurations remain compatible.
+
 ## 0.1.1
 
 - Make separate userToken and optional Cookie prompts the default sign-in flow.

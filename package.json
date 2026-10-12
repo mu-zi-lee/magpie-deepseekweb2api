@@ -1,6 +1,6 @@
 {
-  "name": "magpie-deepseek-web-pool",
-  "version": "0.1.1",
+  "name": "magpie-deepseekweb2api",
+  "version": "0.1.2",
   "description": "DeepSeek Web provider plugin for Magpie with an internal multi-key pool",
   "type": "module",
   "main": "./src/index.mjs",
