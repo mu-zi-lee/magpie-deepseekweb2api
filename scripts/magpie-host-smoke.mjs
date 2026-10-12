@@ -95,6 +95,7 @@ try {
   assert.equal(init.plugins[0].error, undefined, init.plugins[0].error)
   assert.deepEqual(init.plugins[0].provides, ["deepseek-web"])
   const providers = await rpc("providers")
+  assert.match(providers[0].icon, /^data:image\/png;base64,/)
   assert.equal(providers[0].methods[0].type, "oauth")
   assert.deepEqual(providers[0].models.map((model) => model.id).sort(), ["deepseek-chat", "deepseek-reasoner"])
   const flow = await rpc("authorize", { provider: "deepseek-web", method: 0 })

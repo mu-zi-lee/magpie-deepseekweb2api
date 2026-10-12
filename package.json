@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./src/index.mjs",
   "exports": { ".": "./src/index.mjs", "./server": "./src/index.mjs" },
-  "files": ["src", "scripts", "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md"],
+  "files": ["src", "scripts", "assets", "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md"],
   "keywords": ["magpie", "magpie-plugin", "deepseek", "deepseek-web"],
   "license": "MIT",
   "engines": { "node": ">=20.3.0" },

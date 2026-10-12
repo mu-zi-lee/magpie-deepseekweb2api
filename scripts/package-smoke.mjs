@@ -14,7 +14,7 @@ try {
   const { stdout } = await run(process.platform === "win32" ? "npm.cmd" : "npm", ["pack", "--json", "--ignore-scripts", "--pack-destination", temporary], { cwd: root })
   const [archive] = JSON.parse(stdout)
   assert.ok(archive.filename)
-  assert.ok(archive.files.every((file) => /^(src\/|scripts\/|README\.md$|LICENSE$|SECURITY\.md$|CHANGELOG\.md$|package\.json$)/.test(file.path)), "unexpected file in release archive")
+  assert.ok(archive.files.every((file) => /^(src\/|scripts\/|assets\/|README\.md$|LICENSE$|SECURITY\.md$|CHANGELOG\.md$|package\.json$)/.test(file.path)), "unexpected file in release archive")
   await run("tar", ["-xzf", path.join(temporary, archive.filename), "-C", temporary])
   const packageRoot = path.join(temporary, "package")
   const manifest = JSON.parse(await readFile(path.join(packageRoot, "package.json"), "utf8"))
@@ -34,6 +34,9 @@ try {
     return new Response('data: {"v":{"response":{"status":"FINISHED","message_id":7,"fragments":[{"type":"RESPONSE","content":"ok"}]}}}\n\n', { headers: { "content-type": "text/event-stream" } })
   }
   const plugin = await entry.server()
+  const icon = await readFile(path.join(packageRoot, "assets/icon-256.png"))
+  assert.equal(plugin.auth.icon, `data:image/png;base64,${icon.toString("base64")}`)
+  assert.ok(plugin.auth.icon.length <= 3 << 19, "icon exceeds Magpie's size limit")
   const config = {}
   plugin.config(config)
   assert.deepEqual(Object.keys(config.provider["deepseek-web"].models).sort(), ["deepseek-chat", "deepseek-reasoner"])

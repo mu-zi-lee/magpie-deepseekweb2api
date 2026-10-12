@@ -4,7 +4,10 @@ import { classifyError, currentUser, safeErrorMessage } from "./deepseek-api.mjs
 import { complete } from "./completion.mjs"
 import { chunk, finishReason, toPrompt, validateMessages } from "./openai.mjs"
 import { createHash } from "node:crypto"
+import { readFileSync } from "node:fs"
 import { completedHistory, planConversation } from "./conversation.mjs"
+
+const icon = `data:image/png;base64,${readFileSync(new URL("../assets/icon-256.png", import.meta.url)).toString("base64")}`
 
 function authKeys(auth) {
   const raw = auth?.metadata?.keys ?? auth?.keys ?? auth?.key ?? auth?.access ?? ""
@@ -57,6 +60,7 @@ export const server = async () => {
     },
     auth: {
       provider: PROVIDER,
+      icon,
       methods: [{
         type: "oauth",
         label: "Import DeepSeek Web keys",
